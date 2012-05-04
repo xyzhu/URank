@@ -265,30 +265,31 @@ public class URank {
     {
     	/*Output all rank values of the software*/
 		HashMap<String,Double>[] ScoreArray;		
-		ScoreArray=new HashMap[10];				
+		ScoreArray=new HashMap[8];				
 		ScoreArray[0]=calculateHubAuth("HITS-hubs");
 		ScoreArray[1]=calculateHubAuth("HITS-authorities");	
-		ScoreArray[2]=calculateBetweennessCentrality();
-		ScoreArray[3]=calculatePageRank();
-		ScoreArray[4]=calculateDegreeScorer("Degree");
-		ScoreArray[5]=calculateDegreeScorer("inDegree");
-		ScoreArray[6]=calculateDegreeScorer("outDegree");
-		ScoreArray[7]=calculateReferenceTimes("Total");
-		ScoreArray[8]=calculateReferenceTimes("In");
-		ScoreArray[9]=calculateReferenceTimes("Out");
+//		ScoreArray[2]=calculateBetweennessCentrality();
+//		ScoreArray[3]=calculatePageRank();
+		ScoreArray[2]=calculateDegreeScorer("Degree");
+		ScoreArray[3]=calculateDegreeScorer("inDegree");
+		ScoreArray[4]=calculateDegreeScorer("outDegree");
+		ScoreArray[5]=calculateReferenceTimes("Total");
+		ScoreArray[6]=calculateReferenceTimes("In");
+		ScoreArray[7]=calculateReferenceTimes("Out");
 	
 		try{
 			OutputStream f1=new FileOutputStream(projectname+".csv",false);			
-			String str="file_name,HITS_hubs,HITS_authorities,BetweennessCentrality,PageRank,DegreeScorer,InDegree,OutDegree,ReferenceTimes,InReference,OutReference\n";
+			String str="file_name,HITS_hubs,HITS_authorities,DegreeScorer,InDegree,OutDegree,ReferenceTimes,InReference,OutReference\n";
 			f1.write(str.getBytes());
 			str="";			
 			int m=0;
+			int num_sig = ScoreArray.length;
 			for(Iterator i=ScoreArray[0].keySet().iterator();i.hasNext();)
 			{
 				String class_name=(String)i.next();				
 				str=class_name;
 				if(class_name.contains(".java")){
-				for(int j=0;j<10;j++)
+				for(int j=0;j<num_sig;j++)
 				{
 					Double t=ScoreArray[j].get(class_name);					
 					str=str+","+t.toString();
